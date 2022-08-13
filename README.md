@@ -12,21 +12,23 @@ This is no longer maintained, was never really tested outside of doing the job I
 
 ### Setup
 - Copy config.sample to config.
-  - Edit setup, set the vars to your strata details.  Use developer tools while logging to get anything you don't know
-      STRATA_CONTACT="12345" # Login id provided to you
-      STRATA_USER="00712345" # Probably your login id preceeded by 007
-      STRATA_ID="123000"     # Your reseller's id
-      STRATA_ROLE="2"        # Your role within the BC.  From memory use 1 for user, 2 for committe member, 3 for chair.
-      STRATA_PASS="<secret>" # Your lookatmystrata password, in plaintext
-      STRATA_VERSION="1252"  # Unsure, probably don't change it
-      REMOTE="dest:path"     # The cloud destination you want rclone to save the docs to.  Format is `<rclone-dest>:<path>` where `<rclone-dest` is the `[rclone-dest]` from rclone.conf, and <path> is the location within that dest where you want to save it.  See rclone doc for more help on this.
+  - Edit setup, set the vars to your strata details.  Use developer tools while logging in to get anything you don't know
+  
+        STRATA_CONTACT="12345" # Login id provided to you
+        STRATA_USER="00712345" # Probably your login id preceeded by 007
+        STRATA_ID="123000"     # Your reseller's id
+        STRATA_ROLE="2"        # Your role within the BC.  From memory use 1 for user, 2 for committe member, 3 for chair.
+        STRATA_PASS="<secret>" # Your lookatmystrata password, in plaintext
+        STRATA_VERSION="1252"  # Unsure, probably don't change it
+        REMOTE="dest:path"     # The cloud destination you want rclone to save the docs to.  Format is `<rclone-dest>:<path>` where `<rclone-dest>` is the `[rclone-dest]` header from rclone.conf, and `<path>` is the location within that dest where you want to save it.  See rclone doc for more help on this.
   - Edit rclone.conf, add your configuration
 - `docker build`
 - `docker run`, or add a stanza to your docker-compose:
-    downloadmystrata:
-      image: downloadmystrata:latest
-      volumes:
-        - ./config:/config
+
+        downloadmystrata:
+          image: downloadmystrata:latest
+          volumes:
+            - ./config:/config
 
 The first run will not download any documents, but will set up the record of what it's already seen - subsequent runs will download everything new.
 If you want to re-download something, remove it from `config/.files-seen`.  If you want to re-download everything, `echo -n > config/.files-seen`.
