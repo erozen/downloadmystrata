@@ -1,0 +1,9 @@
+export STRATA_CONTACT="<login id provided to you>"
+export STRATA_USER="<probably your login id preceeded by 007>"
+export STRATA_ID="<your resellers id>"
+export STRATA_PASS="<plaintext-password>"  # This used directly on the command line, so be sure to escape any special chars like $\() etc
+export REMOTE="strata_get_onedrive:<rootdir>/<path>"
+export RUN_IN_LOOP="yes"
+
+#export PERIOD=86400
+#export VERBOSE=y
